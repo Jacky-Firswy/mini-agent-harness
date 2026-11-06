@@ -40,3 +40,14 @@
   font-size: 0.72rem;
   opacity: 0.72;
 }
+
+/* 页底 Giscus 批注区 */
+.giscus-wrap {
+  margin-top: 3rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+.giscus-hint {
+  font-size: 0.75rem;
+  opacity: 0.75;
+}

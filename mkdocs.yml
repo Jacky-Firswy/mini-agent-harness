@@ -10,6 +10,7 @@ site_dir: site
 theme:
   name: material
   language: zh
+  custom_dir: docs/overrides
   font:
     text: Noto Sans SC
     code: JetBrains Mono
@@ -81,6 +82,11 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/org2AI/ORG2
       name: ORG2 上游仓库
+  giscus:
+    repo: Jacky-Firswy/mini-agent-harness
+    repo_id: R_kgDOVlLVEQ
+    category: Announcements
+    category_id: DIC_kwDOVlLVEc4DKh62
 
 nav:
   - 首页: index.md
