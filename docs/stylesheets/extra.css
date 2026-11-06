@@ -1,0 +1,42 @@
+/* 三种标记的视觉约定 */
+
+/* 📝 我的批注 —— quote 类型，左侧绿色竖条 */
+.md-typeset .admonition.quote,
+.md-typeset details.quote {
+  border-color: #2e7d32;
+}
+.md-typeset .quote > .admonition-title,
+.md-typeset .quote > summary {
+  background-color: rgba(46, 125, 50, 0.08);
+  border-color: #2e7d32;
+  font-weight: 600;
+}
+
+/* 🆕 版本补充 —— success 类型，左侧金色竖条 */
+.md-typeset .admonition.success.ver,
+.md-typeset details.success.ver {
+  border-color: #b8860b;
+}
+.md-typeset .success.ver > .admonition-title,
+.md-typeset .success.ver > summary {
+  background-color: rgba(184, 134, 11, 0.1);
+  border-color: #b8860b;
+}
+
+/* ⚠️ 推断存疑 —— warning 类型，左侧橙色竖条 */
+.md-typeset .admonition.warning.doubt,
+.md-typeset details.warning.doubt {
+  border-color: #d35400;
+}
+.md-typeset .warning.doubt > .admonition-title,
+.md-typeset .warning.doubt > summary {
+  background-color: rgba(211, 84, 0, 0.1);
+  border-color: #d35400;
+}
+
+/* 源码位置行：小号等宽字体，弱化处理 */
+.src-path {
+  font-family: var(--md-code-font-family);
+  font-size: 0.72rem;
+  opacity: 0.72;
+}

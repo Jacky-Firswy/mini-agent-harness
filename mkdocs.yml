@@ -1,0 +1,115 @@
+site_name: ORG2 设计说明书
+site_description: 逐层拆解 ORG2 的每一个设计理念、每一个原理，以及它们为什么被这样设计
+site_author: Firswy
+site_url: https://jacky-firswy.github.io/mini-agent-harness/
+repo_url: https://github.com/Jacky-Firswy/mini-agent-harness
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: zh
+  font:
+    text: Noto Sans SC
+    code: JetBrains Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.mark
+  - pymdownx.caret
+  - pymdownx.keys
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/org2AI/ORG2
+      name: ORG2 上游仓库
+
+nav:
+  - 首页: index.md
+  - 导读:
+      - 这本书怎么读: guide/how-to-read.md
+      - ORG2 到底是个什么系统: guide/what-is-org2.md
+  - 内核:
+      - Agent 内核: core/agent-kernel.md
+      - 一条消息的旅程: core/message-journey.md
+      - 事件流: core/event-stream.md
+      - 回合执行器: core/turn-executor.md
+      - 工具系统: core/tools.md
+      - Provider 层: core/providers.md
+      - 会话与状态: core/session.md
+  - 能力层:
+      - 记忆系统: intelligence/memory.md
+      - Skills · MCP · Hooks: intelligence/skills-mcp-hooks.md
+  - 外部世界:
+      - 渠道与网关: integrations/channels.md
+      - 自动化触发: integrations/automation.md
+  - 数据与界面:
+      - 持久化: data/persistence.md
+      - 前端与 Tauri: data/frontend.md
+      - 测试与自进化: data/testing.md
+  - 建造史:
+      - 五个阶段: history/stages.md
+  - 附录:
+      - 五层架构规则速查: appendix/architecture-rules.md
+      - 术语表: appendix/glossary.md
+      - 我自己的 harness 对照: appendix/my-harness.md
+      - 原理笔记（早前写的）: principle.md
+      - GitHub 入门指南: github-guide.md
+  - 我的批注:
+      - 怎么写批注: notes/how-to-annotate.md
+      - 批注汇总: notes/my-notes.md

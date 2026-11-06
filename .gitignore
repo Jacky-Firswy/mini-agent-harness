@@ -6,6 +6,9 @@ sessions/
 __pycache__/
 *.pyc
 
+# 文档站构建产物
+site/
+
 # IDE / 工具缓存
 .orgii/
 .vscode/
