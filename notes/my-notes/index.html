@@ -1899,6 +1899,7 @@
               
               <article class="md-content__inner md-typeset">
                 
+  
                   
 
 
@@ -1924,6 +1925,11 @@
 <p>这一页汇总全书所有 📝 批注和 🆕 版本补充。
 由我（AI）在每次补充后手动更新。你也可以直接改这个文件。</p>
 </blockquote>
+<div class="admonition tip">
+<p class="admonition-title">手机随手记用页底那栏</p>
+<p>这一页只跟踪<strong>正文里</strong>的批注。所有想随手写、当天就看到的笔记，写在每页底部的「批注与讨论」里。</p>
+<p>全部讨论的集中入口：<a href="https://github.com/Jacky-Firswy/mini-agent-harness/discussions">Discussions</a></p>
+</div>
 <h2 id="_2">版本表<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -2134,6 +2140,51 @@
 
 
                 
+
+  
+    <section class="giscus-wrap">
+      <h2 id="__comments">批注与讨论</h2>
+      <p class="giscus-hint">
+        这一栏直接存在 GitHub Discussions 里，<strong>提交后立刻显示</strong>，不需要重新发布站点。
+        想改正文里那个 <code>📝 我的批注</code> 框，用右上角的铅笔按钮。
+      </p>
+      <script
+        src="https://giscus.app/client.js"
+        data-repo="Jacky-Firswy/mini-agent-harness"
+        data-repo-id="R_kgDOVlLVEQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOVlLVEc4DKh62"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+      </script>
+      <script>
+        (function () {
+          var sync = function () {
+            var frame = document.querySelector("iframe.giscus-frame");
+            if (!frame) return;
+            var dark = document.body.getAttribute("data-md-color-scheme") === "slate";
+            frame.contentWindow.postMessage(
+              { giscus: { setConfig: { theme: dark ? "dark" : "light" } } },
+              "https://giscus.app"
+            );
+          };
+          new MutationObserver(sync).observe(document.body, {
+            attributes: true,
+            attributeFilter: ["data-md-color-scheme"]
+          });
+        })();
+      </script>
+    </section>
+  
+
               </article>
             </div>
           
