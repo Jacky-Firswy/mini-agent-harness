@@ -3,6 +3,7 @@ site_description: 逐层拆解 ORG2 的每一个设计理念、每一个原理�
 site_author: Firswy
 site_url: https://jacky-firswy.github.io/mini-agent-harness/
 repo_url: https://github.com/Jacky-Firswy/mini-agent-harness
+edit_uri: edit/main/docs/
 docs_dir: docs
 site_dir: site
 
@@ -24,6 +25,8 @@ theme:
     - search.highlight
     - content.code.copy
     - content.tabs.link
+    - content.action.edit
+    - content.action.view
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
