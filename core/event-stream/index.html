@@ -1,0 +1,2964 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="逐层拆解 ORG2 的每一个设计理念、每一个原理，以及它们为什么被这样设计">
+      
+      
+        <meta name="author" content="Firswy">
+      
+      
+        <link rel="canonical" href="https://jacky-firswy.github.io/mini-agent-harness/core/event-stream/">
+      
+      
+        <link rel="prev" href="../message-journey/">
+      
+      
+        <link rel="next" href="../turn-executor/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>事件流 - ORG2 设计说明书</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Noto Sans SC";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="ORG2 设计说明书" class="md-header__button md-logo" aria-label="ORG2 设计说明书" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ORG2 设计说明书
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              事件流
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Jacky-Firswy/mini-agent-harness" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../guide/how-to-read/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  导读
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../agent-kernel/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  内核
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../intelligence/memory/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  能力层
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../integrations/channels/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  外部世界
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../data/persistence/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  数据与界面
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../history/stages/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  建造史
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../appendix/architecture-rules/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  附录
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../notes/how-to-annotate/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  我的批注
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="ORG2 设计说明书" class="md-nav__button md-logo" aria-label="ORG2 设计说明书" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ORG2 设计说明书
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Jacky-Firswy/mini-agent-harness" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    导读
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    导读
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/how-to-read/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    这本书怎么读
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/what-is-org2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ORG2 到底是个什么系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    内核
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    内核
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent-kernel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent 内核
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message-journey/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    一条消息的旅程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事件流
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事件流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是"事件流"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        两个方案的对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么必须删掉"TS 累加器"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="为什么必须删掉&#34;TS 累加器&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷一：刷新页面，半句话就没了
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷二：断线重连，内容对不上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷三：多端同时看，各拼各的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷四：没法测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句话总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streamingbuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StreamingBuffer 怎么工作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="StreamingBuffer 怎么工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点一：按"类型"分开缓冲
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点二：5 秒无活动就自动收尾
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#500kb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点三：500KB 硬上限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点四：分片计数器 —— 最容易忽略的细节
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessionevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SessionEvent 长什么样
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SessionEvent 长什么样">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三个设计点值得注意
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recompute_extracted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recompute_extracted()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        顺带讲清楚：事件流 ≠ 消息总线
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        消息总线：一个不对称的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="消息总线：一个不对称的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inboundmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InboundMessage 的关键字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outboundmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出站：OutboundMessage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ioc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一个很聪明的解耦技巧：IoC 函数指针
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadcast_event-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        broadcast_event helper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整章串起来
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本章要点
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../turn-executor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    回合执行器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../providers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Provider 层
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../session/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    会话与状态
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    能力层
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    能力层
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intelligence/memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    记忆系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intelligence/skills-mcp-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skills · MCP · Hooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    外部世界
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    外部世界
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integrations/channels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    渠道与网关
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../integrations/automation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化触发
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据与界面
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    数据与界面
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/persistence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    持久化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    前端与 Tauri
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试与自进化
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    建造史
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    建造史
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history/stages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    五个阶段
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/architecture-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    五层架构规则速查
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../appendix/my-harness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    我自己的 harness 对照
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    原理笔记（早前写的）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../github-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub 入门指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    我的批注
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    我的批注
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/how-to-annotate/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    怎么写批注
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notes/my-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    批注汇总
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是"事件流"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        两个方案的对比
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么必须删掉"TS 累加器"
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="为什么必须删掉&#34;TS 累加器&#34;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷一：刷新页面，半句话就没了
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷二：断线重连，内容对不上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷三：多端同时看，各拼各的
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        缺陷四：没法测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一句话总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#streamingbuffer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StreamingBuffer 怎么工作
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="StreamingBuffer 怎么工作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点一：按"类型"分开缓冲
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点二：5 秒无活动就自动收尾
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#500kb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点三：500KB 硬上限
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        要点四：分片计数器 —— 最容易忽略的细节
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessionevent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SessionEvent 长什么样
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SessionEvent 长什么样">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三个设计点值得注意
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recompute_extracted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        recompute_extracted()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        顺带讲清楚：事件流 ≠ 消息总线
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        消息总线：一个不对称的设计
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="消息总线：一个不对称的设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#inboundmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        InboundMessage 的关键字段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outboundmessage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        出站：OutboundMessage
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ioc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        一个很聪明的解耦技巧：IoC 函数指针
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#broadcast_event-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        broadcast_event helper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        整章串起来
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        本章要点
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">事件流<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">什么是"事件流"<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>先给定义，再讲为什么。</p>
+<blockquote>
+<p><strong>事件流 = 系统在做事情的过程中，不断往外吐出的"发生了什么"的记录。</strong></p>
+</blockquote>
+<p>举个例子，模型正在回你一段话：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>事件1：{类型: "文本增量", 内容: "这个", 会话: "abc"}
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>事件2：{类型: "文本增量", 内容: "函数", 会话: "abc"}
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>事件3：{类型: "文本增量", 内容: "的作用", 会话: "abc"}
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>...
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>事件99：{类型: "文本完成", 内容: "这个函数的作用是…", 会话: "abc"}
+</code></pre></div>
+<p>界面上你看到文字一个个蹦出来，就是因为它一边收到这些事件，一边往屏幕上贴。</p>
+<p><strong>关键问题来了</strong>：事件是<strong>碎片</strong>。碎片怎么变成界面上那段完整的话？这就要引出本章的核心。</p>
+<h2 id="_3">两个方案的对比<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><code>foundation/streaming.rs</code> 开头的注释，是整个文件里最有价值的部分。它直接把旧方案和新方案并列给你看：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Instead of:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  Rust → delta → WebSocket → TS accumulator → Jotai → UI
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>We now have:
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Rust → delta → StreamingBuffer → 完整事件 → EventStore → WebSocket → UI
+</code></pre></div>
+<p>先解释这里出现的每个名词，零基础也能读：</p>
+<table>
+<thead>
+<tr>
+<th>名词</th>
+<th>是什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rust</strong></td>
+<td>后端（内核跑在这里）</td>
+</tr>
+<tr>
+<td><strong>delta</strong></td>
+<td>增量，也就是一小块文本碎片</td>
+</tr>
+<tr>
+<td><strong>WebSocket</strong></td>
+<td>一条双向长连接，后端可以主动往前端推数据</td>
+</tr>
+<tr>
+<td><strong>TS accumulator</strong></td>
+<td>用 TypeScript 写的"累加器"—— 在前端把碎片拼起来</td>
+</tr>
+<tr>
+<td><strong>Jotai</strong></td>
+<td>一个前端状态管理库，可以理解为"前端的全局变量容器"</td>
+</tr>
+<tr>
+<td><strong>UI</strong></td>
+<td>你看到的界面</td>
+</tr>
+<tr>
+<td><strong>StreamingBuffer</strong></td>
+<td>新加的缓冲器，在 Rust 这边把碎片拼起来</td>
+</tr>
+<tr>
+<td><strong>完整事件</strong></td>
+<td>拼好之后的整块内容</td>
+</tr>
+<tr>
+<td><strong>EventStore</strong></td>
+<td>事件仓库，存完整事件的地方</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ts">为什么必须删掉"TS 累加器"<a class="headerlink" href="#ts" title="Permanent link">&para;</a></h2>
+<p>这是本章最重要的一段推理。</p>
+<p>旧方案里，<strong>拼装碎片这件事发生在前端</strong>。看起来没什么问题，实际有四个致命缺陷：</p>
+<h3 id="_4">缺陷一：刷新页面，半句话就没了<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>累加器是内存里的一个字符串变量。用户按 F5，变量清零。</p>
+<p>后端还在继续发 delta，但累加器是空的。于是界面上从半截开始显示，前面那部分<strong>永远找不回来了</strong>。</p>
+<h3 id="_5">缺陷二：断线重连，内容对不上<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>WebSocket 断了 3 秒。这 3 秒里的 delta 全丢了。</p>
+<p>重连之后，累加器从断点继续拼，拼出来的句子是残缺的。而数据库里存的是完整的。<strong>两边不一致，而且没人知道哪个是对的。</strong></p>
+<h3 id="_6">缺陷三：多端同时看，各拼各的<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>桌面窗口和手机端各有一个累加器，各自收到一部分 delta，拼出来的结果不一样。</p>
+<h3 id="_7">缺陷四：没法测试<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>要测"累加逻辑对不对"，得启动整个前端。而后端部分的逻辑，反而一行都测不到。</p>
+<h3 id="_8">一句话总结<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><code>streaming.rs</code> 的注释原话：<strong>Eliminates frontend delta accumulation, providing a single source of truth.</strong></p>
+<p>消除前端的增量累加，提供<strong>单一真相</strong>。</p>
+</blockquote>
+<p><strong>"单一真相"（single source of truth）</strong> —— 这个词请记住，它是 ORG2 全书最核心的一条设计理念。我上一轮跟你讲"三条主线"的时候说的第一场仗，打的就是它。</p>
+<h2 id="streamingbuffer"><code>StreamingBuffer</code> 怎么工作<a class="headerlink" href="#streamingbuffer" title="Permanent link">&para;</a></h2>
+<p>现在看实现。它的接口很短：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">append_message_delta</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">bool</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nc">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">append_thinking_delta</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">bool</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nc">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">complete_message</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">SessionEvent</span><span class="o">&gt;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">complete_thinking</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="n">SessionEvent</span><span class="o">&gt;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">flush_expired</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">SessionEvent</span><span class="o">&gt;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">clear_session</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span>
+</code></pre></div>
+<p>四个要点：</p>
+<h3 id="_9">要点一：按"类型"分开缓冲<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>注意 <code>Message</code> 和 <code>Thinking</code> 是两个独立的流。</p>
+<p><strong>为什么？</strong> 因为模型可能同时在做两件事：一边"想"（thinking），一边"说"（message）。这两个内容要分别拼装，否则会搅在一起。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">StreamType</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">Message</span><span class="p">,</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">Thinking</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="5">要点二：5 秒无活动就自动收尾<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">const</span><span class="w"> </span><span class="n">DEFAULT_TIMEOUT_MS</span><span class="p">:</span><span class="w"> </span><span class="kt">u64</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5000</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>为什么需要超时？</strong></p>
+<p>因为不是所有情况下都有明确的"我说完了"信号。模型可能因为网络问题、或者被取消，突然就不发了。这时候缓冲区里会一直挂着一堆没发出去的碎片。</p>
+<p>超时机制保证：<strong>5 秒没新内容，就把攒的东西当作一个完整事件发出去。</strong></p>
+<p><code>flush_expired()</code> 就是干这个的，注释说"每秒调一次"。</p>
+<h3 id="500kb">要点三：500KB 硬上限<a class="headerlink" href="#500kb" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">const</span><span class="w"> </span><span class="n">MAX_CONTENT_LENGTH</span><span class="p">:</span><span class="w"> </span><span class="kt">usize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">500_000</span><span class="p">;</span>
+</code></pre></div>
+<p>单个流最多攒 500KB 文本。超了就从前面砍掉。</p>
+<p><strong>注意它砍的方式很讲究</strong>：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">let</span><span class="w"> </span><span class="n">excess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">content</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">MAX_CONTENT_LENGTH</span><span class="p">;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kd">let</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">content</span><span class="p">[</span><span class="n">excess</span><span class="o">..</span><span class="p">]</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="sc">'\n'</span><span class="p">)</span><span class="w">                    </span><span class="c1">// 从超出点往后找第一个换行</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">i</span><span class="o">|</span><span class="w"> </span><span class="n">excess</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">       </span><span class="c1">// 保留换行之后的内容</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="p">.</span><span class="n">unwrap_or</span><span class="p">(</span><span class="n">excess</span><span class="p">);</span><span class="w">            </span><span class="c1">// 找不到换行就硬砍</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="bp">self</span><span class="p">.</span><span class="n">content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">content</span><span class="p">[</span><span class="n">start</span><span class="o">..</span><span class="p">].</span><span class="n">to_string</span><span class="p">();</span>
+</code></pre></div>
+<p><strong>先找换行再砍</strong>，而不是直接在中间切一刀。</p>
+<p>为什么？因为如果切在多字节字符（比如中文）中间，会产生乱码字节。找换行是最简单的"安全切点"策略。</p>
+<div class="admonition warning">
+<p class="admonition-title">⚙️ 这是推断，不是源码原文</p>
+<p>上面关于"避免切坏多字节字符"的解释是我的推断。源码注释只说 "preserve line boundaries"（保留行边界），没有说原因。</p>
+<p>不过这个推断是有旁证的 —— ORG2 的架构审计文档里提过 "UTF-8 截断被重写了 10 次以上、有一处会 panic"，说明字节边界切断确实是他们踩过很多次的坑。</p>
+</div>
+<h3 id="_10">要点四：分片计数器 —— 最容易忽略的细节<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>这段代码我想单独讲，因为它是<strong>"产品级代码"和"玩具代码"的真实分界线</strong>。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">segment_counters</span><span class="p">:</span><span class="w"> </span><span class="nc">Arc</span><span class="o">&lt;</span><span class="n">Mutex</span><span class="o">&lt;</span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">BufferKey</span><span class="p">,</span><span class="w"> </span><span class="kt">u64</span><span class="o">&gt;&gt;&gt;</span><span class="p">,</span>
+</code></pre></div>
+<p>注释原文：</p>
+<blockquote>
+<p>Monotonic segment counter per (session, stream_type) so every flushed segment within a turn gets a distinct event id. Without this, a turn that interleaves <code>text → tool → text</code> would flush two segments with the same id (<code>stream-msg-{session}</code>) and the frontend's upsert would overwrite the first segment's text with the second.</p>
+</blockquote>
+<p>翻译并展开：</p>
+<p><strong>场景</strong>：一个回合里，模型先说话，然后调工具，然后继续说。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>"我先看看这个文件"        ← 第一段文本
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>   ↓
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>[调用 read_file 工具]
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>   ↓
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>"看完了，问题是第 42 行"   ← 第二段文本
+</code></pre></div>
+<p><strong>机制</strong>：第一段文本结束时，缓冲区清空并生成一个事件。第二段文本结束时，再生成一个事件。</p>
+<p><strong>如果事件 id 只按 <code>stream-msg-{session_id}</code> 生成</strong>，那两段的 id <strong>完全一样</strong>。</p>
+<p><strong>后果</strong>：前端拿到两个 id 相同的事件，会执行 <code>upsert</code>（有则更新，无则插入）。第二个事件会<strong>覆盖</strong>第一个。</p>
+<p><strong>用户看到的现象</strong>：第一段话凭空消失了，只剩下第二段。</p>
+<div class="admonition note">
+<p class="admonition-title">这个 bug 有多难发现</p>
+<p>它只在"文本 → 工具 → 文本"这种交替模式下出现。如果你测试时只让它说一段话，永远测不到。</p>
+<p>而且现象是"文字消失"，不是报错 —— 用户会以为是自己看错了。</p>
+</div>
+<p><strong>修复</strong>：给每个 (会话, 流类型) 配一个单调递增的计数器。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">let</span><span class="w"> </span><span class="n">seq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">counters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">segment_counters</span><span class="p">.</span><span class="n">lock</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">counters</span><span class="p">.</span><span class="n">entry</span><span class="p">(</span><span class="n">key</span><span class="p">).</span><span class="n">or_insert</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="o">*</span><span class="n">entry</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="o">*</span><span class="n">entry</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="p">};</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="kd">let</span><span class="w"> </span><span class="n">event_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stream_event_id</span><span class="p">(</span><span class="n">stream_type</span><span class="p">,</span><span class="w"> </span><span class="n">session_id</span><span class="p">,</span><span class="w"> </span><span class="n">seq</span><span class="p">);</span>
+</code></pre></div>
+<p>现在两段的 id 分别是 <code>stream-msg-abc-1-{uuid}</code> 和 <code>stream-msg-abc-2-{uuid}</code>，不会撞车。</p>
+<p><strong>注意注释里还有一句关键技术细节</strong>：</p>
+<blockquote>
+<p>The counter is kept alive across multiple turns for the same session so that IDs remain unique per (session, stream_type) pair.</p>
+</blockquote>
+<p>计数器<strong>跨回合保留</strong>，不是每回合清零。否则第二个回合的 seq 又从 1 开始，还是会撞。</p>
+<p>内存什么时候释放？<code>clear_session()</code> 时（会话结束时）。注释明确写了：</p>
+<blockquote>
+<p>Entries are purged by <code>clear_session()</code> when the session ends.</p>
+</blockquote>
+<p><strong>这是一个典型的"内存泄漏 vs 正确性"权衡</strong>：计数器和会话同生命周期，不会无限增长，但保证 id 唯一。</p>
+<h2 id="sessionevent"><code>SessionEvent</code> 长什么样<a class="headerlink" href="#sessionevent" title="Permanent link">&para;</a></h2>
+<p>拼装完成的完整事件，就是 <code>SessionEvent</code>。它有 <strong>24 个字段</strong>。我只列关键的：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>String</td>
+<td>唯一标识（就是上面讲的分片 id）</td>
+</tr>
+<tr>
+<td><code>chunk_id</code></td>
+<td>Option\&lt;String&gt;</td>
+<td>分片标识</td>
+</tr>
+<tr>
+<td><code>session_id</code></td>
+<td>String</td>
+<td>属于哪个会话</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>String</td>
+<td>RFC3339 时间戳</td>
+</tr>
+<tr>
+<td><code>function_name</code></td>
+<td>String</td>
+<td>函数名（<code>assistant</code> / <code>thinking</code> / 工具名）</td>
+</tr>
+<tr>
+<td><code>ui_canonical</code></td>
+<td>String</td>
+<td>界面上的规范名（<code>agent_message</code> / <code>thinking</code>）</td>
+</tr>
+<tr>
+<td><code>action_type</code></td>
+<td>String</td>
+<td>动作类型（<code>assistant</code> / <code>llm_thinking</code>）</td>
+</tr>
+<tr>
+<td><code>args</code></td>
+<td>JSON</td>
+<td>参数</td>
+</tr>
+<tr>
+<td><code>result</code></td>
+<td>JSON</td>
+<td>结果</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>enum</td>
+<td>来源（<code>EventSource::Assistant</code> 等）</td>
+</tr>
+<tr>
+<td><code>display_text</code></td>
+<td>String</td>
+<td>界面上显示的文字</td>
+</tr>
+<tr>
+<td><code>display_status</code></td>
+<td>enum</td>
+<td>显示状态（<code>Completed</code> 等）</td>
+</tr>
+<tr>
+<td><code>display_variant</code></td>
+<td>enum</td>
+<td>显示样式（<code>Message</code> / <code>Thinking</code>）</td>
+</tr>
+<tr>
+<td><code>activity_status</code></td>
+<td>enum</td>
+<td>活动状态（<code>ActivityStatus::Agent</code>）</td>
+</tr>
+<tr>
+<td><code>is_delta</code></td>
+<td>Option\&lt;bool&gt;</td>
+<td><strong>是不是增量</strong></td>
+</tr>
+<tr>
+<td><code>thread_id</code> / <code>process_id</code> / <code>call_id</code></td>
+<td>Option</td>
+<td>各种关联 id</td>
+</tr>
+<tr>
+<td><code>file_path</code> / <code>command</code></td>
+<td>Option</td>
+<td>涉及的文件 / 命令</td>
+</tr>
+<tr>
+<td><code>repo_id</code> / <code>repo_path</code></td>
+<td>Option</td>
+<td>仓库信息</td>
+</tr>
+<tr>
+<td><code>extracted</code></td>
+<td>Option</td>
+<td>提取出的结构化信息</td>
+</tr>
+<tr>
+<td><code>payload_refs</code></td>
+<td>Vec</td>
+<td>大负载的引用（不直接存内容）</td>
+</tr>
+<tr>
+<td><code>last_extract_at</code></td>
+<td>Option</td>
+<td>上次提取时间</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">三个设计点值得注意<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p><strong>1. <code>is_delta</code> 字段。</strong></p>
+<p>拼装完成的事件里，<code>is_delta</code> 是 <code>Some(false)</code>。这个字段的存在说明系统<strong>能同时处理"增量"和"完整"两种形态</strong>。界面可以选择只认完整事件，但底层协议兼容两种。</p>
+<p><strong>2. <code>display_text</code> 和 <code>result</code> 分开。</strong></p>
+<p>为什么同一个内容存两遍？</p>
+<p>因为它们是给<strong>不同消费者</strong>看的：
+- <code>display_text</code> 是给界面直接渲染的
+- <code>result</code> 是给程序解析的结构化数据</p>
+<p>如果只有 <code>result</code>，界面每次都要解析 JSON；如果只有 <code>display_text</code>，程序没法处理。</p>
+<p><strong>3. <code>payload_refs</code>。</strong></p>
+<p>大内容的引用列表。这和 <code>tool_result_storage.rs</code> 是同一个思路：<strong>大东西存别处，事件里只放指针。</strong></p>
+<p>否则一条事件几百 KB，存进数据库会把库撑爆。</p>
+<h3 id="recompute_extracted"><code>recompute_extracted()</code><a class="headerlink" href="#recompute_extracted" title="Permanent link">&para;</a></h3>
+<p><code>to_event()</code> 的最后一行：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">event</span><span class="p">.</span><span class="n">recompute_extracted</span><span class="p">();</span>
+</code></pre></div>
+<p>这个方法是"重新计算提取内容"。具体逻辑我没读，但从命名能看出：<strong>事件的派生字段是可以从原始字段重算的。</strong></p>
+<p>这是一个好习惯 —— 派生数据不当作事实来源，随时能从原始数据重建。</p>
+<h2 id="_12">顺带讲清楚：事件流 ≠ 消息总线<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<p>这两个概念经常被混为一谈，但在这个代码库里是<strong>两个不同层次的东西</strong>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>事件流</th>
+<th>消息总线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>位置</td>
+<td><code>foundation/streaming.rs</code></td>
+<td><code>foundation/bus/</code></td>
+</tr>
+<tr>
+<td>解决什么</td>
+<td>把碎片拼成完整事件</td>
+<td>把消息从 A 送到 B</td>
+</tr>
+<tr>
+<td>方向</td>
+<td>内核 → 界面 / 其他监听者</td>
+<td>多渠道 ↔ 内核</td>
+</tr>
+<tr>
+<td>关键结构</td>
+<td><code>StreamingBuffer</code></td>
+<td><code>MessageBus&lt;I, O&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>关系是：事件流负责"攒"，消息总线负责"送"。</strong></p>
+<p>拼好的 <code>SessionEvent</code> 通过总线的广播能力送出去。</p>
+<h2 id="_13">消息总线：一个不对称的设计<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<p><code>foundation/bus/mod.rs</code> 的注释第一句就点明了：</p>
+<blockquote>
+<p>Uses tokio channels: <code>mpsc</code> for inbound (many-to-one) and <code>broadcast</code> for outbound (one-to-many).</p>
+</blockquote>
+<p>两种通道，两个方向：</p>
+<table>
+<thead>
+<tr>
+<th>方向</th>
+<th>通道类型</th>
+<th>容量</th>
+<th>语义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>入站</strong>（渠道 → 内核）</td>
+<td><code>mpsc</code></td>
+<td>256</td>
+<td>多生产者，单消费者</td>
+</tr>
+<tr>
+<td><strong>出站</strong>（内核 → 渠道）</td>
+<td><code>broadcast</code></td>
+<td>1000</td>
+<td>单生产者，多消费者</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">const</span><span class="w"> </span><span class="n">INBOUND_CAPACITY</span><span class="p">:</span><span class="w"> </span><span class="kt">usize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">256</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">const</span><span class="w"> </span><span class="n">OUTBOUND_CAPACITY</span><span class="p">:</span><span class="w"> </span><span class="kt">usize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>为什么入站用小容量、出站用大容量？</strong></p>
+<p>逻辑是：</p>
+<ul>
+<li><strong>入站</strong>（用户发来的消息）：你不希望它堆积。256 条排队已经很多了，说明系统处理不过来了。<strong>堆积起来只会让延迟越来越大</strong>，不如早点暴露问题。</li>
+<li><strong>出站</strong>（内核推出去的事件）：事件是高频的（想想流式文本），而且可以有多个消费者（界面 + 调试 WebSocket + 自动化监听）。1000 的余量更大，避免频繁丢事件。</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">⚙️ 这是推断，不是源码原文</p>
+<p>上面两个容量值的<strong>设计动机</strong>是我的推断。源码只给了数字，没给理由。</p>
+</div>
+<h3 id="inboundmessage"><code>InboundMessage</code> 的关键字段<a class="headerlink" href="#inboundmessage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">InboundMessage</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">channel</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">           </span><span class="c1">// 来源渠道："telegram" / "discord" / "tauri" / "cli" / "system"</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">sender_id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">         </span><span class="c1">// 发送者</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">chat_id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">           </span><span class="c1">// 会话标识</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">           </span><span class="c1">// 文本</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">timestamp</span><span class="p">:</span><span class="w"> </span><span class="nc">DateTime</span><span class="o">&lt;</span><span class="n">Utc</span><span class="o">&gt;</span><span class="p">,</span><span class="w">  </span><span class="c1">// 时间</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">media</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w">        </span><span class="c1">// 附件路径</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">metadata</span><span class="p">:</span><span class="w"> </span><span class="nc">HashMap</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Value</span><span class="o">&gt;</span><span class="p">,</span><span class="w">  </span><span class="c1">// 渠道特有的元数据</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">session_key_override</span><span class="p">:</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w">  </span><span class="c1">// 覆盖会话键</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>最值得注意的是最后一个字段。</strong></p>
+<p><code>session_key_override</code> 的注释：</p>
+<blockquote>
+<p>When set, this value is used instead of <code>{channel}:{chat_id}</code>. Used by channel/gateway dispatch so Tauri frontend events have a matching session_id.</p>
+</blockquote>
+<p>默认情况下，会话 key 是 <code>{channel}:{chat_id}</code>，比如 <code>telegram:12345</code>。</p>
+<p>但有个问题：<strong>如果你在桌面窗口里和 Agent 聊天，然后切换到 Telegram 继续聊，这两个是不同的会话（<code>tauri:xxx</code> vs <code>telegram:12345</code>），历史不共享。</strong></p>
+<p><code>session_key_override</code> 就是解决办法 —— 允许显式指定会话 key，把两个入口绑到同一个会话上。</p>
+<h3 id="outboundmessage">出站：<code>OutboundMessage</code><a class="headerlink" href="#outboundmessage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">OutboundMessage</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">channel</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">chat_id</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">content</span><span class="p">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">reply_to</span><span class="p">:</span><span class="w"> </span><span class="nb">Option</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w">   </span><span class="c1">// 回复的是哪条</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">media</span><span class="p">:</span><span class="w"> </span><span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span><span class="w">         </span><span class="c1">// 附件</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="n">metadata</span><span class="p">:</span><span class="w"> </span><span class="nc">HashMap</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">Value</span><span class="o">&gt;</span><span class="p">,</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>比入站少了 <code>sender_id</code>（出站不需要知道"谁发的"，只有"发给谁"）、<code>timestamp</code>（不重要）、<code>session_key_override</code>（不需要）。</p>
+<p>多了 <code>reply_to</code>。</p>
+<p><strong>这个差异本身就是设计</strong>:入站要"识别身份"，出站要"定位目标"。</p>
+<h2 id="ioc">一个很聪明的解耦技巧：IoC 函数指针<a class="headerlink" href="#ioc" title="Permanent link">&para;</a></h2>
+<p>这段是全章技术含量最高的部分。</p>
+<p>问题：<strong>内核需要往界面推事件。但界面在 <code>app</code> 层（更上面）。按依赖规矩，内核不能往上 import。</strong></p>
+<p>怎么办？</p>
+<p><code>bus/mod.rs</code> 的答案：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">BroadcastFn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">fn</span><span class="p">(</span><span class="nb">String</span><span class="p">);</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">static</span><span class="w"> </span><span class="n">BROADCAST</span><span class="p">:</span><span class="w"> </span><span class="nc">OnceLock</span><span class="o">&lt;</span><span class="n">BroadcastFn</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OnceLock</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">register_broadcast</span><span class="p">(</span><span class="n">broadcast_fn</span><span class="p">:</span><span class="w"> </span><span class="nc">BroadcastFn</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BROADCAST</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">broadcast_fn</span><span class="p">);</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>内核只定义一个"空的插槽"（<code>OnceLock</code>），启动时由上层把真正的函数塞进来。</strong></p>
+<p>注释解释得很清楚：</p>
+<blockquote>
+<p>The actual broadcaster lives in <code>api::websocket_handler</code> (the <code>app</code> layer). We register a function pointer at startup so this module — and any future extracted <code>agent-core</code> crate — has no compile-time back-edge into <code>app</code>.</p>
+</blockquote>
+<p>翻译：真正的广播器住在 <code>app</code> 层的 <code>api::websocket_handler</code>。我们在启动时注册一个函数指针，这样本模块（以及未来可能被单独抽出来的 <code>agent-core</code> crate）<strong>在编译期没有一条反向依赖指向 <code>app</code></strong>。</p>
+<p>这个手法叫 <strong>IoC（控制反转）</strong>。日常见到的 IoC 是"依赖注入"（把对象传进来），这里是它的轻量版 —— <strong>只传函数指针</strong>。</p>
+<p><strong>好处</strong>：内核可以被单独编译、单独测试，不需要拖着整个界面层。</p>
+<p>还有个配套设计：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">frontend_subscriber_count</span><span class="p">()</span><span class="w"> </span><span class="p">-&gt;</span><span class="w"> </span><span class="kt">usize</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="n">SUBSCRIBER_COUNT</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">f</span><span class="o">|</span><span class="w"> </span><span class="n">f</span><span class="p">()).</span><span class="n">unwrap_or</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="p">}</span>
+</code></pre></div>
+<p><strong>问"现在有几个前端连着"这件事，也要通过插槽</strong>。没注册时返回 0，注释说这是"安全的默认值"。</p>
+<p><strong>为什么要问这个？</strong> 因为如果没人在听（比如你关了窗口），系统可能选择不推送、或者改为攒起来。这个判断让内核对"有没有观众"保持敏感，但不依赖观众是谁。</p>
+<h2 id="broadcast_event-helper"><code>broadcast_event</code> helper<a class="headerlink" href="#broadcast_event-helper" title="Permanent link">&para;</a></h2>
+<p>最后一块拼图。发送事件的统一入口：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">fn</span><span class="w"> </span><span class="nf">broadcast_event</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nc">serde</span><span class="p">::</span><span class="n">Serialize</span><span class="o">&gt;</span><span class="p">(</span><span class="n">event_type</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">payload</span><span class="p">:</span><span class="w"> </span><span class="nc">T</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="cp">#[derive(serde::Serialize)]</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">EventEnvelope</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span><span class="w"> </span><span class="nc">serde</span><span class="p">::</span><span class="n">Serialize</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="n">r</span><span class="p">#</span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="kp">&amp;</span><span class="o">'</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="p">,</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">        </span><span class="n">payload</span><span class="p">:</span><span class="w"> </span><span class="nc">T</span><span class="p">,</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="c1">// ... 序列化后交给注册的广播函数</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="p">}</span>
+</code></pre></div>
+<p>它把所有事件包装成统一信封：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"某个事件类型"</span><span class="p">,</span><span class="w"> </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p><strong>这个信封设计的好处</strong>：前端拿到消息，先看 <code>type</code> 决定用哪个组件渲染，再看 <code>payload</code> 取数据。<strong>不需要猜</strong>。</p>
+<p>如果失败呢？源码写了：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">tracing</span><span class="p">::</span><span class="n">warn</span><span class="o">!</span><span class="p">(</span><span class="s">"[bus] broadcast handler not registered; dropping event"</span><span class="p">),</span>
+</code></pre></div>
+<p>没注册就<strong>记一条警告然后丢弃</strong>，不 panic。</p>
+<p><strong>这个选择很重要</strong>：事件是"尽力而为"的，不是"必须送达"的。丢了不影响正确性（因为真相在数据库里），只影响实时性。</p>
+<h2 id="_14">整章串起来<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<p>一条消息的完整生命周期，从"碎片"到"你看到"：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>模型 API 吐出一堆 delta
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>        ↓
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>StreamingBuffer.append_message_delta()   ← 按类型攒
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        ↓
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>（5 秒无活动 / 收到结束信号）
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        ↓
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>StreamingBuffer.complete_message()       ← 变成一个完整 SessionEvent
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>        ↓  带着唯一的分片 id
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>EventStore.upsert(event)                 ← 存进真相
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>        ↓
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>broadcast_event(type, payload)           ← 包成 {type, payload}
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>        ↓
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>BROADCAST 插槽（启动时注册的函数指针）
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>        ↓
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>WebSocket / Tauri IPC Channel
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>        ↓
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>前端：按 type 选组件，按 payload 渲染
+</code></pre></div>
+<p><strong>注意这条链上，界面是最后一个环节，而且可以缺席。</strong> 界面不在的时候，前面全部正常工作，数据照样落库。</p>
+<p>这就是"内核无界面"这个设计落到实处的样子。</p>
+<hr />
+<h2 id="_15">本章要点<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<ol>
+<li>事件流 = 系统不断吐出的"发生了什么"记录，本质是碎片</li>
+<li>旧方案在前端拼装碎片，导致刷新丢失、断线不一致、多端不同步、无法测试</li>
+<li>新方案在 Rust 侧用 <code>StreamingBuffer</code> 拼装，实现"单一真相"</li>
+<li>缓冲按 Message / Thinking 分开；5 秒超时自动收尾；500KB 上限按换行切</li>
+<li><strong>分片计数器</strong>解决了"文本→工具→文本"导致事件 id 撞车、前一段消失的隐蔽 bug</li>
+<li><code>SessionEvent</code> 有 24 个字段，<code>display_text</code> 给界面、<code>result</code> 给程序、<code>payload_refs</code> 存指针</li>
+<li>事件流负责"攒"，消息总线负责"送"，是两个层次</li>
+<li>总线入站用 mpsc（256）、出站用 broadcast（1000）</li>
+<li>IoC 函数指针让内核不必反向依赖界面层</li>
+<li><code>broadcast_event</code> 统一信封 <code>{type, payload}</code>，发送失败只记警告</li>
+</ol>
+<p class="src-path">源码：src-tauri/crates/agent-core/src/foundation/streaming.rs（20,303 B）、src-tauri/crates/agent-core/src/foundation/bus/mod.rs、foundation/bus/events.rs</p>
+
+<hr />
+<div class="admonition quote">
+<p class="admonition-title">📝 我的批注 · 2026-11-06 · v0.1</p>
+<p>留白。</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/org2AI/ORG2" target="_blank" rel="noopener" title="ORG2 上游仓库" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "navigation.indexes", "toc.follow", "search.suggest", "search.highlight", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
