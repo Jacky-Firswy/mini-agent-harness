@@ -105,13 +105,52 @@
 
 改完 Markdown 后，本地预览会自动刷新（`mkdocs serve` 有热重载）。
 
-如果是要生成静态文件（发布用）：
+如果是要生成静态文件：
 
 ```bash
 python -m mkdocs build
 ```
 
-产物在 `site/` 目录。**注意 `site/` 应该加进 `.gitignore`**，因为它是生成物。
+产物在 `site/` 目录。**`site/` 已在 `.gitignore` 里**，因为它是生成物。
+
+## 发布到公网（手机也能看）
+
+站点已经托管在 GitHub Pages：
+
+**https://jacky-firswy.github.io/mini-agent-harness/**
+
+改完文档后，一条命令就能更新线上版本：
+
+```bash
+git add docs mkdocs.yml
+git commit -m "文档：补充 xxx"
+git push origin main
+python -m mkdocs gh-deploy --strict
+```
+
+最后那条 `gh-deploy` 会构建、推到 `gh-pages` 分支，然后 GitHub Pages 自动生效（大约 1~3 分钟）。
+
+### 为什么不用 GitHub Actions 自动发布
+
+本来配了一个工作流，push 就自动构建。但它启动即失败，报错是：
+
+```text
+The job was not started because your account is locked due to a billing issue.
+```
+
+**这是账号计费问题，不是仓库配置问题。** 所以现在的流程是手动跑 `gh-deploy`。等计费问题解决后，可以再把工作流加回来。
+
+### 本地局域网访问（手机同一 WiFi）
+
+如果只是临时给同一 WiFi 下的手机看，可以不推公网：
+
+```bash
+python -m mkdocs serve -a 0.0.0.0:8000
+```
+
+然后手机访问 `http://<本机局域网IP>:8000/`（本机 IP 用 `ipconfig` 查）。
+
+**`-a 0.0.0.0` 是必须的** —— 默认的 `127.0.0.1` 是回环地址，只有本机能连，手机永远打不开。另外 Windows 防火墙要放行这个端口，否则也会被拦住。
 
 ---
 
