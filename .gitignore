@@ -1,0 +1,16 @@
+# 密钥绝不进仓库
+.env
+
+# 运行产物
+sessions/
+__pycache__/
+*.pyc
+
+# IDE / 工具缓存
+.orgii/
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db
