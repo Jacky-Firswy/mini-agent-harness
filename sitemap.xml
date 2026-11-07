@@ -2,102 +2,106 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/github-guide/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/principle/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/appendix/architecture-rules/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/appendix/glossary/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/appendix/my-harness/</loc>
-         <lastmod>2026-11-06</lastmod>
-    </url>
-    <url>
-         <loc>https://jacky-firswy.github.io/mini-agent-harness/core/agent-kernel/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/core/event-stream/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/core/message-journey/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/core/providers/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/core/session/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/core/tools/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/core/turn-executor/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
+    </url>
+    <url>
+         <loc>https://jacky-firswy.github.io/mini-agent-harness/core/agent-kernel/</loc>
+         <lastmod>2026-11-07</lastmod>
+    </url>
+    <url>
+         <loc>https://jacky-firswy.github.io/mini-agent-harness/core/agent-kernel/layers/</loc>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/data/frontend/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/data/persistence/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/data/testing/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/guide/how-to-read/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/guide/what-is-org2/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/history/stages/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/integrations/automation/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/integrations/channels/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/intelligence/memory/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/intelligence/skills-mcp-hooks/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/notes/how-to-annotate/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
     <url>
          <loc>https://jacky-firswy.github.io/mini-agent-harness/notes/my-notes/</loc>
-         <lastmod>2026-11-06</lastmod>
+         <lastmod>2026-11-07</lastmod>
     </url>
 </urlset>

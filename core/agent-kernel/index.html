@@ -18,7 +18,7 @@
         <link rel="prev" href="../../guide/what-is-org2/">
       
       
-        <link rel="next" href="../message-journey/">
+        <link rel="next" href="layers/">
       
       
         
@@ -273,6 +273,15 @@
   
     
     
+      
+  
+  
+  
+    
+  
+  
+    
+    
       <li class="md-tabs__item md-tabs__item--active">
         <a href="./" class="md-tabs__link">
           
@@ -284,6 +293,9 @@
 
         </a>
       </li>
+    
+  
+
     
   
 
@@ -694,16 +706,37 @@
   
   
   
-    <li class="md-nav__item md-nav__item--active">
+    
+    
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
+        
+          
+        
       
         
       
+    
+    
+    
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
+      
+        
           
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
   
   
   <span class="md-ellipsis">
@@ -717,17 +750,43 @@
   
   
 
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Agent 内核
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="layers/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Agent 内核
+    五层结构与依赖规矩
   
 
     
@@ -736,274 +795,13 @@
   
 
       </a>
-      
-        
+    </li>
+  
 
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        先说结论
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        为什么必须"没有界面"
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="为什么必须&#34;没有界面&#34;">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        不是"专注"，是"没有那条依赖边"
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        三条理由其实是同一条
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        三条各自的补充
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一句修正后的总结
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        顺带纠正一个可能的误解
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        五层结构
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="五层结构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        依赖方向：一条硬规矩
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-intelligence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一个故意的例外：core ↔ intelligence 是双向的
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        关于这个环，文档给了两条禁令
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        目录实证
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="目录实证">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        顶层的零散文件
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#foundation-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        foundation/（第 0 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        core/（第 1 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intelligence-2a" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        intelligence/（第 2a 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#integrations-2b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        integrations/（第 2b 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#state-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        state/（第 3 层）+ 两个独立模块
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一个容易忽略的设计：规范化重导出
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#harness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        和你的 harness 对照
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        本章要点
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -2114,159 +1912,15 @@
   <a href="#_8" class="md-nav__link">
     <span class="md-ellipsis">
       
-        五层结构
+        这个循环外面套着什么
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="五层结构">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_9" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        依赖方向：一条硬规矩
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-intelligence" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一个故意的例外：core ↔ intelligence 是双向的
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_10" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        关于这个环，文档给了两条禁令
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_11" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        目录实证
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="目录实证">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_12" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        顶层的零散文件
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#foundation-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        foundation/（第 0 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#core-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        core/（第 1 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#intelligence-2a" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        intelligence/（第 2a 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#integrations-2b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        integrations/（第 2b 层）
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#state-3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        state/（第 3 层）+ 两个独立模块
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_13" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        一个容易忽略的设计：规范化重导出
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#harness" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        和你的 harness 对照
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_14" class="md-nav__link">
     <span class="md-ellipsis">
       
         本章要点
@@ -2294,7 +1948,7 @@
 
 
   
-    <a href="https://github.com/Jacky-Firswy/mini-agent-harness/edit/main/docs/core/agent-kernel.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/Jacky-Firswy/mini-agent-harness/edit/main/docs/core/agent-kernel/index.md" title="编辑此页" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -2303,7 +1957,7 @@
     
       
     
-    <a href="https://github.com/Jacky-Firswy/mini-agent-harness/raw/main/docs/core/agent-kernel.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/Jacky-Firswy/mini-agent-harness/raw/main/docs/core/agent-kernel/index.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
     </a>
@@ -2345,7 +1999,7 @@
 <p>编译期没有一条反向依赖指向界面层。</p>
 <p>所以准确的说法不是"内核不去看界面"，而是：<strong>内核不认识界面。它甚至没有能力认识。</strong></p>
 <p>"专注"这个框架骗人的地方在于 —— 程序不会分心。它没有注意力可以被干扰。真正在防的不是"分心"，而是<strong>依赖传染</strong>：内核一旦依赖界面，那么"所有使用内核的地方"就等于依赖了界面。</p>
-<p>这也正是下文「依赖方向：一条硬规矩」里那句话的意思：一个底层工具为了图方便直接去读上层状态，明天你要把它搬走，就会发现<strong>它拖着一整条依赖链</strong>。</p>
+<p>这也正是 <a href="layers/">五层结构与依赖规矩</a> 里那句话的意思：一个底层工具为了图方便直接去读上层状态，明天你要把它搬走，就会发现<strong>它拖着一整条依赖链</strong>。</p>
 <h3 id="_4">三条理由其实是同一条<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>它们都在说同一件事：<strong>内核不得依赖任何消费者。</strong></p>
 <table>
@@ -2374,7 +2028,7 @@
 <h3 id="_5">三条各自的补充<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p><strong>① 比"可包装"更强：内核是可剥离的。</strong> 源码注释提到 "any future extracted <code>agent-core</code> crate"，他们把「将来把内核整个抽成独立 crate」当成明确的设计目标。这不是弹性，是<strong>可剥离</strong>。</p>
 <p><strong>② 主体要反过来：不是"内核去执行测试"，是"测试去执行内核"。</strong> 这个区别不是抠字眼 —— 之所以测试能调用内核，是因为<strong>内核是个库，不是个应用</strong>。如果内核自己带界面（自己是个能双击运行的程序），测试就没法把它当函数调。</p>
-<p><strong>③ 是三条里最准的：独立存在。</strong> 书里的原话是「内核只认数据，不认像素」，以及事件流那章的「界面是最后一个环节，<strong>而且可以缺席</strong>」。<strong>"可以缺席"是对"独立存在"最严格的定义</strong> —— 不是"界面在的时候也能工作"，而是"界面不在，它照样跑完，数据照样落库"。</p>
+<p><strong>③ 是三条里最准的：独立存在。</strong> 书里的原话是「内核只认数据，不认像素」，以及 <a href="../event-stream/">事件流</a> 那章的「界面是最后一个环节，<strong>而且可以缺席</strong>」。<strong>"可以缺席"是对"独立存在"最严格的定义</strong> —— 不是"界面在的时候也能工作"，而是"界面不在，它照样跑完，数据照样落库"。</p>
 <h3 id="_6">一句修正后的总结<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>内核不依赖任何界面，<strong>不是因为它忽略界面，而是因为它根本不该有指向界面的依赖边</strong>。这样它才能被多种入口调用、能被测试直接驱动、能在界面缺席时正常工作 —— 而这三件事都不是"更专注"带来的，是"没有那条依赖边"带来的。</p>
@@ -2383,268 +2037,17 @@
 <p>"没有界面"<strong>不等于</strong>"不做界面测试"。ORG2 有三个专门做测试的 crate（<code>e2e-test</code>、<code>test-runner</code>、<code>test-helpers</code>），见 <a href="../../data/testing/">测试与自进化</a>。</p>
 <p>准确的层级是：内核逻辑<strong>可以脱离界面测</strong>，E2E 再叠在上面测"用户真的看到了吗"。如果内核和界面焊死，第一层就没了，只剩又慢又脆的 E2E。</p>
 </div>
-<h2 id="_8">五层结构<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p><code>agent-core/src/ARCHITECTURE.md</code> 里给了一张表。我原样搬过来：</p>
-<table>
-<thead>
-<tr>
-<th>层</th>
-<th>路径</th>
-<th>放什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>3</td>
-<td><code>state/</code></td>
-<td>Tauri 管理的状态、命令处理器（TS 能看到的 API 表面）</td>
-</tr>
-<tr>
-<td>2b</td>
-<td><code>integrations/</code></td>
-<td>外部 I/O —— 聊天渠道、网关、自动化触发</td>
-</tr>
-<tr>
-<td>2a</td>
-<td><code>intelligence/</code></td>
-<td>记忆、技能、MCP、插件、钩子（可插拔的 Agent 能力）</td>
-</tr>
-<tr>
-<td>1</td>
-<td><code>core/</code></td>
-<td>Agent 逻辑 —— provider、会话、工具、回合执行器、定义</td>
-</tr>
-<tr>
-<td>0</td>
-<td><code>foundation/</code></td>
-<td>基础设施 —— 数据库、总线、安全、文件 I/O、节点控制</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="admonition-title">一个小的自相矛盾</p>
-<p><code>lib.rs</code> 的模块注释里写的是 "<strong>4-layer</strong> hierarchy"，而 <code>ARCHITECTURE.md</code> 的表格有 <strong>5 行</strong>。</p>
-<p>为什么？因为 <code>lib.rs</code> 把 2a 和 2b 算成同一层（都叫 "Layer 2"），而 <code>ARCHITECTURE.md</code> 把它们拆成 2a / 2b 并列。</p>
-<p>两种说法都对，只是颗粒度不同。<strong>记住 2a 和 2b 是并列关系</strong>（互相不依赖），这点很重要。</p>
-</div>
-<h3 id="_9">依赖方向：一条硬规矩<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p><code>ARCHITECTURE.md</code> 原文：</p>
-<blockquote>
-<p><strong>Strict downward-only dependency</strong> is enforced for two pairs:
-- <code>state</code> / <code>integrations</code> may import anything below them; nothing may import them.
-- <code>foundation</code> may import nothing else inside <code>agent_core</code>; everything else may import it.</p>
-</blockquote>
-<p>翻译成人话：</p>
-<ul>
-<li><strong>最上面那层是"只出不进"</strong>：<code>state</code> 和 <code>integrations</code> 可以 import 下面任何东西，但下面的东西<strong>绝不能</strong>反过来 import 它们。</li>
-<li><strong>最下面那层是"只进不出"</strong>：<code>foundation</code> 不 import 上面任何东西，但上面谁都能 import 它。</li>
-</ul>
-<p>为什么这条规矩这么重要？</p>
-<p><strong>因为它是唯一能防止"面条化"的机制。</strong> 没有这条规矩，代码会自然地长成这样：一个底层工具为了图方便，直接去读上层的一个全局状态。今天没事，明天你要把这个工具搬到别的地方用，就会发现它拖着一整条依赖链。</p>
-<h3 id="core-intelligence">一个故意的例外：<code>core ↔ intelligence</code> 是双向的<a class="headerlink" href="#core-intelligence" title="Permanent link">&para;</a></h3>
-<p>这条非常反直觉，值得单独讲。</p>
-<p>正常的单向依赖里，<code>intelligence/</code>（在 <code>core/</code> 上面）应该能 import <code>core/</code>，反过来不行。但 ORG2 明确写了：<strong>这两个之间是双向的，而且是故意的。</strong></p>
-<p>原文理由：</p>
-<blockquote>
-<p>This is intentional — <code>intelligence</code> is a <em>capability layer</em> injected into the turn loop, not an outer orchestrator.</p>
-</blockquote>
-<p>翻译：<strong><code>intelligence</code> 是一个"注入进回合循环里的能力层"，不是一个"外层的编排者"。</strong></p>
-<p>这个区别很微妙，但决定了整个架构：</p>
-<ul>
-<li>如果 intelligence 是<strong>外层编排者</strong>，那流程是：intelligence 决定要不要调 core。→ 单向依赖，core 不知道 intelligence 存在。</li>
-<li>但实际上是：<strong>core 的回合循环主动去加载 intelligence 的能力</strong>。<code>core::session::turn::entry</code> 在每回合开始时构造 <code>SkillsLoader</code> 和 <code>HookExecutor</code>。</li>
-</ul>
-<p>所以 core 必须能调 intelligence（<code>SkillsLoader::new</code>、<code>HookExecutor::load</code>、<code>MemoryManager::record</code>）。而 intelligence 又必须能读 <code>SessionId</code>、<code>AgentExecMode</code>、<code>MessageRole</code> 这些 core 的类型，才能知道"我现在是给哪个会话干活"。</p>
-<p>于是就成了环。</p>
-<h3 id="_10">关于这个环，文档给了两条禁令<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<p>这是全书我见过的最有价值的工程建议之一。原文：</p>
-<blockquote>
-<p>Don't try to break the cycle by adding a new "shared types" crate; instead, keep both directions narrow:
-- <code>core → intelligence</code>: only call constructors and run-time entry points
-- <code>intelligence → core</code>: only depend on stable identity / enum types, never on session internals</p>
-</blockquote>
-<p>翻译：</p>
-<p><strong>禁令一：不要想着加一个"共享类型 crate"来解这个环。</strong></p>
-<p>这是所有程序员的第一反应 —— 既然 A 依赖 B、B 又依赖 A，那就把公共类型抽出来放到 C，让 A 和 B 都依赖 C。听起来很美，实际上只是把环变成了三个节点，而且那个 C 会迅速变成一个什么都往里塞的垃圾桶。</p>
-<p><strong>禁令二：让两个方向都保持"窄"。</strong></p>
-<ul>
-<li><code>core → intelligence</code>：只允许调<strong>构造函数</strong>和<strong>运行时入口</strong>。也就是"我给你材料，你干活"，不许窥探它的内部。</li>
-<li><code>intelligence → core</code>：只允许依赖<strong>稳定的身份类型和枚举</strong>。也就是 <code>SessionId</code>、<code>AgentExecMode</code>、<code>MessageRole</code> 这种，<strong>绝不允许碰会话内部结构</strong>。</li>
-</ul>
-<p><strong>为什么这个建议值钱</strong>：它承认了"环有时是不可避免的"，然后给出了比"消灭环"更实际的解法 —— <strong>限制环上每个方向的带宽</strong>。</p>
-<p>还有一条补充禁令：</p>
-<blockquote>
-<p>Never push downward into <code>foundation/</code> to escape a missing dep — refactor instead.</p>
-</blockquote>
-<p><strong>永远不要为了绕过一个缺失的依赖，把东西往下塞进 <code>foundation/</code>。去重构。</strong></p>
-<p>这条治的是另一种常见病：某个模块缺个东西，图省事就往最底层扔，反正底层谁都能用。结果 <code>foundation/</code> 变成了垃圾场。</p>
-<h2 id="_11">目录实证<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
-<p>上面讲的是原则。下面是 <code>agent-core/src/</code> 实际有什么（初始提交，逐目录核实）。</p>
-<h3 id="_12">顶层的零散文件<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>大小</th>
-<th>干什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>ARCHITECTURE.md</code></td>
-<td>18,759 B</td>
-<td>给新工程师的地图</td>
-</tr>
-<tr>
-<td><code>lib.rs</code></td>
-<td>2,307 B</td>
-<td>模块声明 + 重导出</td>
-</tr>
-<tr>
-<td><code>lifecycle.rs</code></td>
-<td>27,041 B</td>
-<td>应用生命周期（启动/关闭/恢复）</td>
-</tr>
-<tr>
-<td><code>debug.rs</code></td>
-<td>5,626 B</td>
-<td>对外暴露的 HTTP 调试接口</td>
-</tr>
-<tr>
-<td><code>test_support.rs</code></td>
-<td>10,422 B</td>
-<td>测试辅助</td>
-</tr>
-</tbody>
-</table>
-<p><code>lifecycle.rs</code> 有 27KB，比很多项目的整个源码都大。它管的是"应用从启动到关闭"的全过程 —— 恢复未完成的会话、注册总线、初始化数据库、关闭时优雅收尾。这些事都很枯燥，但漏一件就会出诡异 bug。</p>
-<h3 id="foundation-0"><code>foundation/</code>（第 0 层）<a class="headerlink" href="#foundation-0" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>bus/               事件总线
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>flow_awareness/    流程感知
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>nodes/             节点控制
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>persistence/       持久化（SQLite）
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>security/          安全
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>tool_infra/        工具基础设施
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>utils/             工具函数
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>mod.rs
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>db_bridge.rs          2,688 B
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>session_bridge.rs    13,048 B
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>streaming.rs         20,303 B   ← 事件流的实体，见专门章节
-</code></pre></div>
-<p><code>lib.rs</code> 里的重导出说明这一层暴露什么：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">foundation</span><span class="p">::{</span><span class="n">bus</span><span class="p">,</span><span class="w"> </span><span class="n">flow_awareness</span><span class="p">,</span><span class="w"> </span><span class="n">nodes</span><span class="p">,</span><span class="w"> </span><span class="n">persistence</span><span class="p">,</span><span class="w"> </span><span class="n">security</span><span class="p">,</span><span class="w"> </span><span class="n">tool_infra</span><span class="p">,</span><span class="w"> </span><span class="n">utils</span><span class="p">};</span>
-</code></pre></div>
-<p>注意 <code>streaming.rs</code> <strong>不在</strong>重导出列表里。它是个具体实现，不是给上层用的抽象。</p>
-<h3 id="core-1"><code>core/</code>（第 1 层）<a class="headerlink" href="#core-1" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>config/           配置
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>coordination/     协调（多 Agent 时用）
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>definitions/      Agent 定义
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>interaction/      与用户交互
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>model_context/    模型上下文（窗口、裁剪）
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>providers/        模型接入
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>session/          会话
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>tools/            工具
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>turn_executor/    回合执行器
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>tests/
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>side_query.rs     4,386 B
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>mod.rs              414 B
-</code></pre></div>
-<p><code>core/mod.rs</code> 只有 414 字节 —— 它就是个纯声明文件，把九个模块列出来。<strong>保持入口文件极简，是这个代码库的一个习惯。</strong></p>
-<h3 id="intelligence-2a"><code>intelligence/</code>（第 2a 层）<a class="headerlink" href="#intelligence-2a" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>external_import/   外部导入
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>hooks/             钩子
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>mcp/               Model Context Protocol
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>memory/            记忆
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>policies/          策略（自主性权限）
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>skills/            技能
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>mod.rs              289 B
-</code></pre></div>
-<h3 id="integrations-2b"><code>integrations/</code>（第 2b 层）<a class="headerlink" href="#integrations-2b" title="Permanent link">&para;</a></h3>
-<p><code>automation</code>（自动化触发）、<code>channels</code>（聊天渠道）、<code>gateway</code>（网关）。</p>
-<h3 id="state-3"><code>state/</code>（第 3 层）+ 两个独立模块<a class="headerlink" href="#state-3" title="Permanent link">&para;</a></h3>
-<p><code>state/</code> 是 Tauri 命令层。另外 <code>lib.rs</code> 里还声明了两个「独立模块」：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// Standalone modules</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">pub</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="nn">init</span><span class="p">;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">pub</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="nn">lifecycle</span><span class="p">;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">pub</span><span class="w"> </span><span class="k">mod</span><span class="w"> </span><span class="nn">orchestrator_notify</span><span class="p">;</span>
-</code></pre></div>
-<p><code>orchestrator_notify</code> 是"编排者通知" —— 多 Agent 场景下，子 Agent 完事了要通知编排者。它不属于任何一层，是个横切关注点。</p>
-<h2 id="_13">一个容易忽略的设计：规范化重导出<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
-<p><code>lib.rs</code> 的最后一段：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// Canonical re-exports: flatten sub-layer modules to `agent_core::` for ergonomic imports</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="bp">self</span><span class="p">::</span><span class="n">core</span><span class="p">::{</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">coordination</span><span class="p">,</span><span class="w"> </span><span class="n">definitions</span><span class="p">,</span><span class="w"> </span><span class="n">interaction</span><span class="p">,</span><span class="w"> </span><span class="n">model_context</span><span class="p">,</span><span class="w"> </span><span class="n">providers</span><span class="p">,</span><span class="w"> </span><span class="n">session</span><span class="p">,</span><span class="w"> </span><span class="n">tools</span><span class="p">,</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">turn_executor</span><span class="p">,</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">};</span>
-</code></pre></div>
-<p>注释说得很直白：<strong>把子层的模块「摊平」到 <code>agent_core::</code> 这个命名空间下，让 import 写起来舒服。</strong></p>
-<p>效果是：别处可以写</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">use</span><span class="w"> </span><span class="n">agent_core</span><span class="p">::</span><span class="n">tools</span><span class="p">::</span><span class="n">registry</span><span class="p">::</span><span class="n">ToolRegistry</span><span class="p">;</span>
-</code></pre></div>
-<p>而不必写</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">use</span><span class="w"> </span><span class="n">agent_core</span><span class="p">::</span><span class="n">core</span><span class="p">::</span><span class="n">tools</span><span class="p">::</span><span class="n">registry</span><span class="p">::</span><span class="n">ToolRegistry</span><span class="p">;</span>
-</code></pre></div>
-<p>看起来是小事，但 <code>core::tools::</code> 这种双层命名实际上很别扭。这是个很小但很体现"用起来顺不顺手"的细节。</p>
-<h2 id="harness">和你的 harness 对照<a class="headerlink" href="#harness" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>概念</th>
-<th>你的 <code>mini-agent-harness</code></th>
-<th>ORG2</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>内核入口</td>
-<td><code>harness/loop.py</code> 的 <code>run_turn()</code></td>
-<td><code>core/turn_executor/mod.rs</code> 的 <code>execute_turn()</code></td>
-</tr>
-<tr>
-<td>每回合状态</td>
-<td><code>Session</code> 对象传参</td>
-<td><code>AgentSession</code> 持有</td>
-</tr>
-<tr>
-<td>工具</td>
-<td><code>ToolRegistry</code></td>
-<td><code>tools/registry.rs</code> + <code>policy.rs</code></td>
-</tr>
-<tr>
-<td>模型调用</td>
-<td><code>OpenAICompatProvider.chat()</code></td>
-<td><code>providers/</code> 四个驱动</td>
-</tr>
-<tr>
-<td>事件</td>
-<td><code>Bus.publish()</code> 直接打印</td>
-<td><code>StreamingBuffer</code> → <code>SessionEvent</code> → WebSocket</td>
-</tr>
-<tr>
-<td>配置</td>
-<td><code>config.py</code> 常量</td>
-<td><code>core/config/</code></td>
-</tr>
-<tr>
-<td>持久化</td>
-<td>JSONL 文件</td>
-<td>SQLite</td>
-</tr>
-</tbody>
-</table>
-<p><strong>最大的一处差异</strong>：你的 <code>Bus</code> 是"发布即打印"，而 ORG2 的事件要先<strong>攒成完整事件</strong>再发。这个区别看起来小，实际上是"能不能有界面"的分水岭。详见 <a href="../event-stream/">事件流</a>。</p>
-<hr />
-<h2 id="_14">本章要点<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h2 id="_8">这个循环外面套着什么<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<p>这一页只讲内核本体。内核外面还套着五层结构，以及层与层之间的依赖规矩 —— 那部分单独成页，见 <a href="layers/">五层结构与依赖规矩</a>。</p>
+<p>分开放的理由：那五层讲的不是"内核在做什么"，而是"代码怎么分家、谁许 import 谁"。两件事混在一章里，读的时候容易分不清哪句在讲机制、哪句在讲纪律。</p>
+<h2 id="_9">本章要点<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <ol>
-<li>内核 = 没有界面的循环体，只认数据不认像素</li>
-<li>五层：<code>state</code> / <code>integrations</code> / <code>intelligence</code> / <code>core</code> / <code>foundation</code></li>
-<li>两条硬规矩：顶层只出不进，底层只进不出</li>
-<li><code>core ↔ intelligence</code> 故意双向，理由是 intelligence 是"注入的能力"不是"外层编排"</li>
-<li>不要加"共享类型 crate"解环；让两个方向保持窄</li>
-<li>不要往 <code>foundation/</code> 里塞东西绕过依赖；去重构</li>
-<li>"没有界面"不是"忽略界面"，而是<strong>没有指向界面的依赖边</strong>；三条理由防的是同一个东西——内核不得依赖任何消费者（见本章 🆕 补充）</li>
+<li>内核 = 没有界面的循环体：发历史 → 看要不要工具 → 执行工具 → 回第 1 步</li>
+<li>内核只认数据，不认像素</li>
+<li>"没有界面"不是"忽略界面"，而是<strong>没有指向界面的依赖边</strong>；内核连认识界面的<strong>能力</strong>都没有</li>
+<li>三条理由防的是同一个东西——内核不得依赖任何消费者（种类多 / 可以没人 / 状态不可信）</li>
 </ol>
-<p class="src-path">源码：src-tauri/crates/agent-core/src/lib.rs、ARCHITECTURE.md、以及各层目录树</p>
+<p class="src-path">源码：src-tauri/crates/agent-core/src/lib.rs、ARCHITECTURE.md 第 1 节</p>
 
 <hr />
 <div class="admonition quote">

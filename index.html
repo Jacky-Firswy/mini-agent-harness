@@ -271,6 +271,13 @@
   
     
     
+      
+  
+  
+  
+  
+    
+    
       <li class="md-tabs__item">
         <a href="core/agent-kernel/" class="md-tabs__link">
           
@@ -282,6 +289,9 @@
 
         </a>
       </li>
+    
+  
+
     
   
 
@@ -870,9 +880,34 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="core/agent-kernel/" class="md-nav__link">
+    
+    
+      
         
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="core/agent-kernel/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -886,7 +921,59 @@
   
   
 
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Agent 内核
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="core/agent-kernel/layers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    五层结构与依赖规矩
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -2135,7 +2222,11 @@
 <tbody>
 <tr>
 <td><a href="core/agent-kernel/">Agent 内核</a></td>
-<td>什么是"内核"：一个没有界面、只会做"把消息喂给模型、把模型要的工具执行掉、再喂回去"的循环体。讲 <code>agent-core</code> 的四层分层、五个子目录各自管什么</td>
+<td>什么是"内核"：一个没有界面、只会做"把消息喂给模型、把模型要的工具执行掉、再喂回去"的循环体。以及为什么它必须没有界面 —— 不是"专注"，是根本没有指向界面的依赖边</td>
+</tr>
+<tr>
+<td><a href="core/agent-kernel/layers/">五层结构与依赖规矩</a></td>
+<td><code>agent-core</code> 的五层怎么排、谁许 import 谁。讲两条硬规矩（顶层只出不进、底层只进不出）、<code>core ↔ intelligence</code> 那个故意的环，以及逐目录实证</td>
 </tr>
 <tr>
 <td><a href="core/message-journey/">一条消息的旅程</a></td>
